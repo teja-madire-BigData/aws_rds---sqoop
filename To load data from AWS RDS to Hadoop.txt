@@ -1,0 +1,25 @@
+To load data from AWS RDS to Hadoop using Sqoop, you can follow the steps below:
+
+Install and configure Sqoop: First, you need to install and configure Sqoop on your Hadoop cluster. You can download Sqoop from the Apache Sqoop website and install it on your Hadoop cluster. You will also need to configure Sqoop by setting up the required properties in the sqoop-site.xml file.
+
+Connect to RDS database: Once you have Sqoop installed and configured, you can connect to your AWS RDS database using the following command:
+
+php
+Copy code
+sqoop import \
+--connect jdbc:mysql://<RDS-Endpoint>:<Port>/<Database-Name> \
+--username <Username> \
+--password <Password> \
+--table <Table-Name> \
+--target-dir <Target-Directory> \
+--split-by <Column-Name>
+In this command, you need to replace the placeholders with the actual values for your RDS database. The --table option specifies the name of the table that you want to import to Hadoop. The --target-dir option specifies the HDFS directory where you want to store the imported data. The --split-by option specifies the column that Sqoop should use to split the data into multiple tasks.
+
+Verify the import: After running the import command, you can verify that the data has been imported to Hadoop by running the following command:
+
+bash
+Copy code
+hdfs dfs -ls <Target-Directory>
+This command will list the files that were created in the target directory.
+
+That's it! With these steps, you should be able to load data from your AWS RDS database to Hadoop using Sqoop.
